@@ -31,11 +31,14 @@
 
 html,body{
   background: radial-gradient(ellipse at 30% 20%, #fce4ec 0%, #f8bbd9 30%, #f48fb1 60%, #e91e8c 100%);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
   min-height:100vh;min-height:100dvh;
   font-family:'Nunito',sans-serif;
-  overflow:hidden;
-  touch-action:none;
+  overflow-x:hidden;
+  overflow-y:auto;
+  touch-action:pan-y;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Decorative background hearts */
@@ -54,19 +57,21 @@ body::before{
 #console{
   position:relative;
   z-index:1;
-  width: min(520px, 96vw);
-  /* height auto from content */
+  width: 100%;
+  max-width: 520px;
   background: linear-gradient(160deg, #f8bbd9 0%, #f06292 35%, #e91e8c 70%, #c2185b 100%);
   border-radius: 36px 36px 48px 48px;
-  padding: 16px 16px 22px 16px;
+  padding: 12px 12px 16px 12px;
   box-shadow:
     0 8px 0 var(--console-shadow),
     0 14px 40px rgba(173,20,87,0.55),
     0 2px 0 rgba(255,255,255,0.4) inset,
     0 -2px 0 rgba(0,0,0,0.15) inset;
-  display:flex;flex-direction:column;align-items:center;gap:10px;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
   user-select:none;
   -webkit-user-select:none;
+  margin: 8px 0 16px 0;
+  box-sizing: border-box;
 }
 
 /* Glossy top shine */
@@ -81,25 +86,26 @@ body::before{
 /* ── LOGO STRIP ── */
 #consoleLogo{
   font-family:'Dancing Script',cursive;
-  font-size:13px;font-weight:700;
+  font-size:11px;font-weight:700;
   color:rgba(255,255,255,0.75);
   letter-spacing:3px;
   text-transform:uppercase;
   text-shadow:0 1px 3px rgba(0,0,0,0.3);
-  margin-top:2px;
+  margin-top:0;
 }
 
 /* ── SCREEN BEZEL ── */
 #screenBezel{
   width:100%;
   background:linear-gradient(145deg, #ad1457, #880e4f, #6a0636);
-  border-radius:18px;
-  padding:10px;
+  border-radius:14px;
+  padding:6px;
   box-shadow:
     0 4px 16px rgba(0,0,0,0.5),
     0 1px 0 rgba(255,255,255,0.2) inset,
     0 -2px 0 rgba(0,0,0,0.3) inset;
   position:relative;
+  flex-shrink: 0;
 }
 
 /* Tiny speaker dots top-left */
@@ -123,8 +129,8 @@ body::before{
 #gameWrapper{
   position:relative;
   width:100%;
-  aspect-ratio:16/10;
-  border-radius:10px;
+  aspect-ratio:16/9;
+  border-radius:8px;
   overflow:hidden;
   box-shadow: 0 0 0 2px rgba(0,0,0,0.4), 0 0 30px rgba(233,30,140,0.4);
 }
@@ -139,9 +145,9 @@ canvas{display:block;width:100%;height:100%;}
 #narrativeBox{
   position:absolute;
   bottom:0;left:0;right:0;
-  background:linear-gradient(180deg,transparent 0%,rgba(6,1,14,0.96) 10%,rgba(6,1,14,0.99) 100%);
-  border-top:1.5px solid rgba(255,130,180,0.45);
-  padding:6px 10px 10px;
+  background:linear-gradient(180deg,rgba(6,1,20,0.0) 0%,rgba(6,1,20,0.97) 8%,rgba(6,1,20,1.0) 100%);
+  border-top:2px solid rgba(255,130,180,0.6);
+  padding:8px 10px 12px;
   display:none;
   pointer-events:all;
   z-index:25;
@@ -152,25 +158,25 @@ canvas{display:block;width:100%;height:100%;}
 /* Pokemon-style dialog layout */
 #narrativeInner{
   display:flex;
-  align-items:center;
-  gap:8px;
+  align-items:flex-start;
+  gap:10px;
 }
 #narrativePortrait{
   flex-shrink:0;
-  width:64px;height:64px;
-  border-radius:6px;
-  border:1.5px solid rgba(255,130,180,0.8);
+  width:80px;height:80px;
+  border-radius:8px;
+  border:2px solid rgba(255,150,200,0.9);
   overflow:hidden;
   background:radial-gradient(ellipse at 40% 30%,#1a2060,#060a20);
   position:relative;
-  box-shadow:0 0 10px rgba(255,80,160,0.5),0 0 0 1px rgba(100,140,255,0.3);
+  box-shadow:0 0 14px rgba(255,80,160,0.6),0 0 0 1px rgba(100,140,255,0.3);
 }
 #narrativePortrait canvas{width:100%;height:100%;}
 #narrativeRight{
   flex:1;
   display:flex;
   flex-direction:column;
-  gap:3px;
+  gap:4px;
   min-width:0;
 }
 
@@ -179,27 +185,27 @@ canvas{display:block;width:100%;height:100%;}
   background:linear-gradient(135deg,var(--pink-main),var(--pink-deep));
   color:#fff;
   font-family:'Fredoka One',cursive;
-  font-size:10px;letter-spacing:1px;
-  padding:2px 9px;border-radius:20px;
+  font-size:11px;letter-spacing:1px;
+  padding:3px 10px;border-radius:20px;
   width:fit-content;
   box-shadow:0 2px 6px rgba(233,30,140,0.4);
 }
 #narrativeText{
-  color:#f0e0f0;
-  font-size:10px;
-  line-height:1.6;
+  color:#f5e8f5;
+  font-size:11px;
+  line-height:1.65;
   font-weight:600;
-  padding-right:26px;
+  padding-right:28px;
 }
 #narrativeClose{
   position:absolute;
-  bottom:8px;right:8px;
-  width:22px;height:22px;
-  background:rgba(255,100,160,0.18);
-  border:1px solid rgba(255,130,180,0.5);
+  bottom:10px;right:10px;
+  width:26px;height:26px;
+  background:rgba(255,100,160,0.25);
+  border:1.5px solid rgba(255,150,200,0.6);
   border-radius:50%;
-  color:rgba(255,180,220,0.9);
-  font-size:10px;
+  color:rgba(255,200,230,0.95);
+  font-size:11px;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;
   pointer-events:all;
@@ -207,7 +213,7 @@ canvas{display:block;width:100%;height:100%;}
   -webkit-tap-highlight-color:transparent;
   font-family:sans-serif;
 }
-#narrativeClose:active{background:rgba(255,100,160,0.5);transform:scale(0.88);}
+#narrativeClose:active{background:rgba(255,100,160,0.6);transform:scale(0.88);}
 
 /* ─────────────────────────────────
    CINEMATIC OVERLAY
@@ -313,8 +319,11 @@ canvas{display:block;width:100%;height:100%;}
 .final-btn:active{transform:scale(0.95);}
 .final-btn.yes{background:linear-gradient(135deg,#ff3d7f,#c0005a);color:#fff;box-shadow:0 4px 18px rgba(255,60,120,0.55);}
 .final-btn.always{background:linear-gradient(135deg,#8833ff,#5500bb);color:#fff;box-shadow:0 4px 18px rgba(140,0,255,0.55);}
+.final-btn.replay{background:linear-gradient(135deg,#e91e8c,#880e4f);color:#fff;box-shadow:0 4px 18px rgba(233,30,140,0.55);}
+#replayBtn{display:none;margin-top:16px;opacity:0;}
+#replayBtn.visible{display:block;animation:fadeInSlow 1s ease forwards;}
 #finalResponse{
-  color:#ffddee;font-size:12px;text-align:center;max-width:420px;line-height:1.85;
+  color:#ffddee;font-size:14px;text-align:center;max-width:420px;line-height:1.85;
   margin-top:14px;display:none;font-weight:600;
   background:rgba(0,0,0,0.45);padding:12px 18px;border-radius:14px;
   border:1px solid rgba(255,150,200,0.28);
@@ -339,8 +348,8 @@ canvas{display:block;width:100%;height:100%;}
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 8px;
-  gap:8px;
+  padding:0 4px;
+  gap:4px;
 }
 
 /* ── D-PAD ── */
@@ -349,13 +358,14 @@ canvas{display:block;width:100%;height:100%;}
   grid-template-columns:repeat(3,1fr);
   grid-template-rows:repeat(3,1fr);
   gap:2px;
-  width:90px;height:90px;
+  width:clamp(90px, 27vw, 112px);
+  height:clamp(90px, 27vw, 112px);
   flex-shrink:0;
 }
 .dpad-btn{
   background:linear-gradient(135deg,#ad1457,#880e4f);
-  border:none;border-radius:6px;
-  color:rgba(255,255,255,0.85);font-size:13px;
+  border:none;border-radius:7px;
+  color:rgba(255,255,255,0.9);font-size:13px;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
@@ -370,17 +380,17 @@ canvas{display:block;width:100%;height:100%;}
 
 /* ── CENTER CLUSTER (logo + select/start) ── */
 .center-cluster{
-  display:flex;flex-direction:column;align-items:center;gap:8px;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
   flex:1;
 }
-.ss-btns{display:flex;gap:10px;}
+.ss-btns{display:flex;gap:8px;}
 .ss-btn{
   background:linear-gradient(135deg,#c2185b,#ad1457);
   border:none;border-radius:20px;
   color:rgba(255,255,255,0.8);
   font-size:7px;font-family:'Nunito',sans-serif;font-weight:700;
   letter-spacing:0.8px;text-transform:uppercase;
-  padding:4px 10px;
+  padding:5px 10px;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
   box-shadow:0 2px 0 #6a0636,0 1px 0 rgba(255,255,255,0.15) inset;
@@ -388,6 +398,10 @@ canvas{display:block;width:100%;height:100%;}
   touch-action:manipulation;
 }
 .ss-btn:active{transform:translateY(1px);box-shadow:0 1px 0 #6a0636;}
+.ss-btn-replay{
+  background:linear-gradient(135deg,#880e4f,#6a0636);
+  font-size:6px;letter-spacing:0.5px;padding:3px 12px;
+}
 .console-brand{
   font-family:'Dancing Script',cursive;
   font-size:10px;font-weight:700;
@@ -401,22 +415,24 @@ canvas{display:block;width:100%;height:100%;}
   grid-template-columns:1fr 1fr;
   grid-template-rows:1fr 1fr;
   gap:5px;
-  width:90px;height:90px;
+  width:clamp(90px, 27vw, 112px);
+  height:clamp(90px, 27vw, 112px);
   flex-shrink:0;
 }
 .act-btn{
-  width:38px;height:38px;
+  width:clamp(36px, 11vw, 48px);
+  height:clamp(36px, 11vw, 48px);
   border:none;border-radius:50%;
-  color:#fff;font-family:'Fredoka One',cursive;font-size:14px;
+  color:#fff;font-family:'Fredoka One',cursive;font-size:12px;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
-  box-shadow:0 3px 0 rgba(0,0,0,0.35),0 1px 0 rgba(255,255,255,0.2) inset;
+  box-shadow:0 4px 0 rgba(0,0,0,0.4),0 1px 0 rgba(255,255,255,0.2) inset;
   display:flex;align-items:center;justify-content:center;
   transition:transform .08s,box-shadow .08s;
   touch-action:manipulation;
   user-select:none;-webkit-user-select:none;
 }
-.act-btn:active,.act-btn.pressed{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,0.35);}
+.act-btn:active,.act-btn.pressed{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,0.35);}
 .btn-x{background:linear-gradient(135deg,#1565c0,#0d47a1);grid-column:2;grid-row:1;}
 .btn-y{background:linear-gradient(135deg,#558b2f,#33691e);grid-column:1;grid-row:2;}
 .btn-a{background:linear-gradient(135deg,#c62828,#b71c1c);grid-column:2;grid-row:2;}
@@ -430,7 +446,8 @@ canvas{display:block;width:100%;height:100%;}
     "b .";
   grid-template-columns:1fr 1fr;
   grid-template-rows:1fr 1fr 1fr;
-  width:90px;height:96px;
+  width:clamp(90px, 27vw, 112px);
+  height:clamp(108px, 33vw, 128px);
 }
 .btn-x{grid-area:x;}
 .btn-y{grid-area:y;}
@@ -438,9 +455,11 @@ canvas{display:block;width:100%;height:100%;}
 .btn-b{grid-area:b;}
 
 /* ── JOYSTICK BARS (decorative) ── */
-.joysticks{display:flex;justify-content:space-between;width:100%;padding:0 16px;}
+.joysticks{display:flex;justify-content:space-between;width:100%;padding:0 10px;}
 .joystick{
-  width:36px;height:36px;border-radius:50%;
+  width:clamp(34px, 9vw, 42px);
+  height:clamp(34px, 9vw, 42px);
+  border-radius:50%;
   background:radial-gradient(circle at 35% 30%,#f48fb1,#c2185b 60%,#880e4f);
   box-shadow:0 3px 0 #6a0636,0 1px 0 rgba(255,255,255,0.25) inset,0 0 0 3px rgba(0,0,0,0.2);
   position:relative;
@@ -457,7 +476,8 @@ canvas{display:block;width:100%;height:100%;}
 /* Rainbow glow on joysticks */
 .joystick-wrap{
   display:flex;align-items:center;justify-content:center;
-  width:44px;height:44px;
+  width:clamp(44px, 12vw, 54px);
+  height:clamp(44px, 12vw, 54px);
   border-radius:50%;
   background:conic-gradient(
     #ff4081,#ff9800,#ffeb3b,#4caf50,#2196f3,#9c27b0,#ff4081
@@ -470,7 +490,7 @@ canvas{display:block;width:100%;height:100%;}
 .screws{
   display:flex;justify-content:space-between;
   width:100%;padding:0 20px;
-  margin-top:-4px;
+  margin-top:-2px;
 }
 .screw{
   width:8px;height:8px;border-radius:50%;
@@ -495,7 +515,7 @@ canvas{display:block;width:100%;height:100%;}
         <div id="narrativeBox">
           <div id="narrativeInner">
             <div id="narrativePortrait">
-              <canvas id="portraitCanvas" width="64" height="64"></canvas>
+              <canvas id="portraitCanvas" width="80" height="80"></canvas>
             </div>
             <div id="narrativeRight">
               <div class="narrator-tag">✉ Ane</div>
@@ -539,6 +559,7 @@ canvas{display:block;width:100%;height:100%;}
               <button class="final-btn always" onclick="G.finalChoice('siempre')">Siempre ❤️</button>
             </div>
             <div id="finalResponse"></div>
+            <div id="replayBtn"><button class="final-btn replay" onclick="G.replayGame()">🔁 Volver a jugar</button></div>
           </div>
         </div>
 
@@ -572,8 +593,9 @@ canvas{display:block;width:100%;height:100%;}
       <div class="console-brand">♥ love edition ♥</div>
       <div class="ss-btns">
         <button class="ss-btn" id="btnSelect">SELECT</button>
-        <button class="ss-btn" id="btnStart" onclick="G.togglePause()">START</button>
+        <button class="ss-btn" id="btnStart">START</button>
       </div>
+      <button class="ss-btn ss-btn-replay" id="btnReplay">REPLAY</button>
     </div>
 
     <!-- ACTION BTNS -->
@@ -598,23 +620,7 @@ canvas{display:block;width:100%;height:100%;}
 <script>
 // ── RESPONSIVE CANVAS ─────────────────────────────────────
 (function(){
-  function resize(){
-    const vw=window.innerWidth,vh=window.innerHeight;
-    const cons=document.getElementById('console');
-    // Console max width already handled by CSS; let layout flow naturally
-    // Just ensure it fits vertically
-    const consH=cons.offsetHeight;
-    if(consH>vh){
-      const scale=vh/consH;
-      cons.style.transform=`scale(${Math.max(0.55,scale)})`;
-      cons.style.transformOrigin='center top';
-    } else {
-      cons.style.transform='';
-    }
-  }
-  resize();
-  window.addEventListener('resize',resize);
-  window.addEventListener('orientationchange',()=>setTimeout(resize,200));
+  // No transform scaling needed — CSS handles all responsiveness
 })();
 
 const canvas=document.getElementById('gameCanvas');
@@ -866,6 +872,7 @@ const G={
       initAudio();this.keys[e.code]=true;
       if(e.code==='KeyP'||e.code==='Escape')this.togglePause();
       if(e.code==='Space'||e.code==='KeyW'||e.code==='ArrowUp')this.keys['Jump']=true;
+      if(e.code==='KeyA'&&this.state==='cinematic'){const b=document.getElementById('cinBtn');if(b)b.click();}
       if(['Space','ArrowUp','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();
     });
     document.addEventListener('keyup',e=>{
@@ -887,12 +894,55 @@ const G={
     hold(document.getElementById('btnJump'),'Jump');
     hold(document.getElementById('btnA'),'Jump');
 
-    // Start = pause
+    // A button also advances level-complete screen
+    const btnA=document.getElementById('btnA');
+    if(btnA){
+      btnA.addEventListener('touchstart',e=>{
+        initAudio();
+        if(this.state==='cinematic'){const b=document.getElementById('cinBtn');if(b)b.click();}
+        e.preventDefault();
+      },{passive:false});
+      btnA.addEventListener('mousedown',()=>{
+        if(this.state==='cinematic'){const b=document.getElementById('cinBtn');if(b)b.click();}
+      });
+    }
+
+    // X button = close dialog
+    const btnX=document.getElementById('btnX');
+    if(btnX){
+      const closeDialog=()=>{initAudio();if(this.dialogPaused)this.closeNarrative();};
+      btnX.addEventListener('touchstart',e=>{closeDialog();e.preventDefault();},{passive:false});
+      btnX.addEventListener('mousedown',()=>closeDialog());
+    }
+
+    // START = start game from intro OR toggle pause during gameplay
     const startBtn=document.getElementById('btnStart');
     if(startBtn){
-      startBtn.addEventListener('touchstart',e=>{initAudio();this.togglePause();e.preventDefault();},{passive:false});
-      startBtn.addEventListener('mousedown',()=>{initAudio();this.togglePause();});
+      const doStart=()=>{
+        initAudio();
+        if(this.state==='intro'){
+          const cinBtn=document.getElementById('cinBtn');
+          if(cinBtn)cinBtn.click();
+        } else {
+          this.togglePause();
+        }
+      };
+      startBtn.addEventListener('touchstart',e=>{doStart();e.preventDefault();},{passive:false});
+      startBtn.addEventListener('mousedown',()=>doStart());
     }
+
+    // REPLAY button
+    const replayBtn=document.getElementById('btnReplay');
+    if(replayBtn){
+      const doReplay=()=>{initAudio();this.replayGame();};
+      replayBtn.addEventListener('touchstart',e=>{doReplay();e.preventDefault();},{passive:false});
+      replayBtn.addEventListener('mousedown',()=>doReplay());
+    }
+
+    // Keyboard: X key closes dialog
+    document.addEventListener('keydown',e=>{
+      if(e.code==='KeyX'&&this.dialogPaused)this.closeNarrative();
+    });
   },
 
   togglePause(){
@@ -943,51 +993,130 @@ const G={
     const box=document.getElementById('narrativeBox');
     document.getElementById('narrativeText').textContent=text;
     box.style.display='block';
-    this.dialogPaused=true;  // PAUSE the game
+    this.dialogPaused=true;
     playCardPickup();
-    // Draw Ane portrait
     const pc=document.getElementById('portraitCanvas');
     if(pc){
-      const pc2=pc.getContext('2d');
-      pc2.clearRect(0,0,64,64);
-      // Background gradient
-      const bg=pc2.createRadialGradient(32,32,0,32,32,36);bg.addColorStop(0,'#1a2a6e');bg.addColorStop(1,'#060a1e');
-      pc2.fillStyle=bg;pc2.fillRect(0,0,64,64);
-      // Stars
-      for(let i=0;i<10;i++){pc2.fillStyle='rgba(255,255,255,'+(0.2+Math.random()*0.5)+')';pc2.beginPath();pc2.arc(Math.random()*64,Math.random()*22,0.8,0,Math.PI*2);pc2.fill();}
-      // Draw prince Ane bust (centered in 64x64)
-      this._drawPortraitAne(pc2,32,64);
+      const c=pc.getContext('2d');
+      c.clearRect(0,0,80,80);
+      // Dark starry background
+      const bg=c.createRadialGradient(40,40,0,40,40,46);
+      bg.addColorStop(0,'#1a2a7a');bg.addColorStop(0.7,'#0a1230');bg.addColorStop(1,'#030710');
+      c.fillStyle=bg;c.fillRect(0,0,80,80);
+      for(let i=0;i<16;i++){c.fillStyle=`rgba(255,255,255,${0.15+Math.random()*0.5})`;c.beginPath();c.arc(Math.random()*80,Math.random()*80,0.7,0,Math.PI*2);c.fill();}
+      // Glow behind head
+      const glow=c.createRadialGradient(40,48,0,40,48,30);
+      glow.addColorStop(0,'rgba(100,140,255,0.22)');glow.addColorStop(1,'transparent');
+      c.fillStyle=glow;c.fillRect(0,0,80,80);
+      // Draw ONLY the face+crown of Ane, zoomed & centered
+      this._drawPortraitFaceAne(c,40,50);
     }
+    const tag=document.querySelector('.narrator-tag');
+    if(tag)tag.innerHTML='👑 Ane';
   },
 
-  _drawPortraitAne(c,cx,bottom){
-    const x=cx-14,y=bottom;
-    // Cape
-    c.fillStyle='#1565c0';c.beginPath();c.moveTo(x+4,y-58);c.lineTo(x+24,y-58);c.quadraticCurveTo(x+36,y-30,x+32,y);c.lineTo(x-4,y);c.quadraticCurveTo(x-8,y-30,x+4,y-58);c.fill();
-    // Body (black uniform)
-    c.fillStyle='#1a1a2e';c.fillRect(x+4,y-58,20,30);
-    // Gold trim
-    c.fillStyle='#ffd700';c.fillRect(x+4,y-58,2,30);c.fillRect(x+22,y-58,2,30);c.fillRect(x+4,y-46,20,2);
-    // Blue diamond
-    c.fillStyle='#1e88e5';c.beginPath();c.moveTo(x+14,y-50);c.lineTo(x+18,y-46);c.lineTo(x+14,y-42);c.lineTo(x+10,y-46);c.closePath();c.fill();
-    c.fillStyle='rgba(255,255,255,0.5)';c.beginPath();c.arc(x+13,y-49,1.5,0,Math.PI*2);c.fill();
-    // Star medals
-    c.fillStyle='#ffd700';c.font='8px serif';c.textAlign='left';c.fillText('★',x+4,y-52);c.fillText('★',x+20,y-52);
-    // Neck
-    c.fillStyle='#f5c5a0';c.fillRect(x+10,y-64,8,8);
-    // Head
-    c.fillStyle='#f5c5a0';c.beginPath();c.ellipse(x+14,y-76,10,11,0,0,Math.PI*2);c.fill();
-    // Dark hair
-    c.fillStyle='#0a1440';c.beginPath();c.arc(x+14,y-81,10,Math.PI,0);c.fill();c.fillRect(x+3,y-82,5,10);c.beginPath();c.arc(x+8,y-82,5,0,Math.PI*2);c.fill();
-    // Crown
-    c.fillStyle='#ffd700';c.beginPath();c.moveTo(x+4,y-88);c.lineTo(x+6,y-94);c.lineTo(x+10,y-90);c.lineTo(x+14,y-96);c.lineTo(x+18,y-90);c.lineTo(x+22,y-94);c.lineTo(x+24,y-88);c.closePath();c.fill();
-    c.fillStyle='#ffec5c';c.beginPath();c.arc(x+14,y-93,2.5,0,Math.PI*2);c.fill();
-    c.fillStyle='#1e88e5';c.beginPath();c.arc(x+7,y-91,1.5,0,Math.PI*2);c.fill();c.beginPath();c.arc(x+21,y-91,1.5,0,Math.PI*2);c.fill();
-    // Eyes
-    c.fillStyle='#fff';c.beginPath();c.ellipse(x+9,y-76,2.5,3,0,0,Math.PI*2);c.fill();c.beginPath();c.ellipse(x+19,y-76,2.5,3,0,0,Math.PI*2);c.fill();
-    c.fillStyle='#1a1a3e';c.beginPath();c.arc(x+9,y-75,1.8,0,Math.PI*2);c.fill();c.beginPath();c.arc(x+19,y-75,1.8,0,Math.PI*2);c.fill();
-    c.fillStyle='#fff';c.fillRect(x+8,y-77,1,1);c.fillRect(x+18,y-77,1,1);
-    c.strokeStyle='#c0836a';c.lineWidth=1;c.beginPath();c.arc(x+14,y-72,2,.2,Math.PI-.2);c.stroke();
+  // Portrait: ONLY face + crown of Ane, fills the 80×80 canvas nicely
+  _drawPortraitFaceAne(c,cx,faceY){
+    const x=cx, y=faceY;
+    const R=17;
+
+    // ── 1. NECK + COLLAR (drawn first, behind everything) ──
+    c.fillStyle='#f0c5a0'; c.fillRect(x-6,y+R-2,12,14);
+    c.fillStyle='#16163a'; c.fillRect(x-13,y+R+8,26,12);
+    c.fillStyle='#ffd700'; c.fillRect(x-13,y+R+8,2,12); c.fillRect(x+11,y+R+8,2,12);
+
+    // ── 2. HAIR BACK (behind face, sides and top) ──
+    c.fillStyle='#0a1040';
+    // Big back hair mass — wide arc behind head
+    c.beginPath(); c.arc(x, y, R+5, Math.PI, 0); c.fill();
+    // Left side sideburn/hair going down
+    c.beginPath(); c.ellipse(x-R-3, y+6, 7, R*0.9, -0.1, 0, Math.PI*2); c.fill();
+    // Right side
+    c.beginPath(); c.ellipse(x+R+3, y+6, 7, R*0.9, 0.1, 0, Math.PI*2); c.fill();
+
+    // ── 3. FACE SKIN ──
+    c.fillStyle='#f0c5a0'; c.beginPath(); c.ellipse(x, y, R, R+1, 0, 0, Math.PI*2); c.fill();
+
+    // ── 4. HAIR FRONT LAYER — covers top of face like a proper fringe ──
+    c.fillStyle='#0a1040';
+    // Main top hair shape — solid arc over forehead
+    c.beginPath();
+    c.moveTo(x-R-4, y-4);
+    c.quadraticCurveTo(x-R, y-R-6, x, y-R-4);
+    c.quadraticCurveTo(x+R, y-R-6, x+R+4, y-4);
+    c.quadraticCurveTo(x+R+2, y-R+4, x+R-2, y-R+6);
+    c.quadraticCurveTo(x, y-R+2, x-R+2, y-R+6);
+    c.quadraticCurveTo(x-R-2, y-R+4, x-R-4, y-4);
+    c.fill();
+    // Fringe strands over forehead
+    c.fillStyle='#0a1040';
+    c.beginPath(); c.ellipse(x-7, y-R+3, 5, 7, -0.3, 0, Math.PI*2); c.fill();
+    c.beginPath(); c.ellipse(x+2, y-R+1, 5, 8, 0.1, 0, Math.PI*2); c.fill();
+    c.beginPath(); c.ellipse(x+9, y-R+4, 4, 6, 0.4, 0, Math.PI*2); c.fill();
+    // Hair highlight/shine
+    c.fillStyle='rgba(70,100,200,0.2)';
+    c.beginPath(); c.ellipse(x-4, y-R-2, 6, 3, -0.4, 0, Math.PI*2); c.fill();
+
+    // ── 5. CROWN (on top of hair) ──
+    c.save(); c.shadowBlur=12; c.shadowColor='#ffd700';
+    const crownY = y - R - 7; // sits right on top of hair
+    c.fillStyle='#ffd700';
+    c.beginPath();
+    c.moveTo(x-13, crownY+4);
+    c.lineTo(x-9,  crownY-7);
+    c.lineTo(x-4,  crownY-2);
+    c.lineTo(x,    crownY-12);
+    c.lineTo(x+4,  crownY-2);
+    c.lineTo(x+9,  crownY-7);
+    c.lineTo(x+13, crownY+4);
+    c.closePath(); c.fill();
+    // Crown base band
+    c.fillStyle='#d4a000'; c.fillRect(x-13, crownY+1, 26, 5);
+    // Crown center gem (bright yellow)
+    c.fillStyle='#ffe44a'; c.beginPath(); c.arc(x, crownY-9, 3.5, 0, Math.PI*2); c.fill();
+    c.fillStyle='rgba(255,255,255,0.8)'; c.beginPath(); c.arc(x-1, crownY-10, 1.5, 0, Math.PI*2); c.fill();
+    // Side gems
+    c.fillStyle='#2196f3'; c.beginPath(); c.arc(x-9, crownY+3, 2.5, 0, Math.PI*2); c.fill();
+    c.fillStyle='#e53935'; c.beginPath(); c.arc(x+9, crownY+3, 2.5, 0, Math.PI*2); c.fill();
+    c.restore();
+
+    // ── 6. FACE DETAILS ──
+    // Cheek blush
+    c.fillStyle='rgba(220,140,110,0.25)';
+    c.beginPath(); c.ellipse(x-R+5, y+5, 6, 4, 0, 0, Math.PI*2); c.fill();
+    c.beginPath(); c.ellipse(x+R-5, y+5, 6, 4, 0, 0, Math.PI*2); c.fill();
+
+    // Eyebrows
+    c.strokeStyle='#0a1040'; c.lineWidth=2; c.lineCap='round';
+    c.beginPath(); c.moveTo(x-12,y-7); c.quadraticCurveTo(x-7,y-10,x-3,y-7); c.stroke();
+    c.beginPath(); c.moveTo(x+12,y-7); c.quadraticCurveTo(x+7,y-10,x+3,y-7); c.stroke();
+
+    // Eyes white
+    c.fillStyle='#fff';
+    c.beginPath(); c.ellipse(x-7, y-1, 4.5, 5.5, 0, 0, Math.PI*2); c.fill();
+    c.beginPath(); c.ellipse(x+7, y-1, 4.5, 5.5, 0, 0, Math.PI*2); c.fill();
+    // Iris (dark navy blue)
+    c.fillStyle='#18205a';
+    c.beginPath(); c.arc(x-7, y, 3, 0, Math.PI*2); c.fill();
+    c.beginPath(); c.arc(x+7, y, 3, 0, Math.PI*2); c.fill();
+    // Pupil
+    c.fillStyle='#05081a';
+    c.beginPath(); c.arc(x-7, y, 1.4, 0, Math.PI*2); c.fill();
+    c.beginPath(); c.arc(x+7, y, 1.4, 0, Math.PI*2); c.fill();
+    // Shine
+    c.fillStyle='#fff'; c.fillRect(x-8,y-2,2,2); c.fillRect(x+6,y-2,2,2);
+    // Eyelashes top
+    c.strokeStyle='#060c30'; c.lineWidth=1.4;
+    c.beginPath(); c.arc(x-7,y-1,5.2,Math.PI+0.3,Math.PI*2-0.3); c.stroke();
+    c.beginPath(); c.arc(x+7,y-1,5.2,Math.PI+0.3,Math.PI*2-0.3); c.stroke();
+
+    // Nose
+    c.strokeStyle='rgba(180,110,80,0.45)'; c.lineWidth=1; c.lineCap='round';
+    c.beginPath(); c.arc(x, y+8, 2.5, 0.3, Math.PI-0.3); c.stroke();
+
+    // Smile
+    c.strokeStyle='#b07050'; c.lineWidth=1.7; c.lineCap='round';
+    c.beginPath(); c.arc(x, y+12, 4.5, 0.25, Math.PI-0.25); c.stroke();
   },
 
   // ── NEW: closeNarrative resumes ──
@@ -1033,6 +1162,21 @@ const G={
     if(choice==='si'){resp.innerHTML='"Sí"... Eso es todo lo que necesitaba escuchar.<br><br>Gracias por llegar hasta aquí, Cielo. Gracias por cada paso. Esta historia no termina aquí, apenas está encontrando su ritmo. Te quiero. ❤️';}
     else{resp.innerHTML='"Siempre"... Esa palabra lo contiene todo.<br><br>No necesito más. Contigo, para siempre, con todo lo que eso significa. Te quiero más de lo que imaginas, y eso tampoco va a cambiar. 💖';}
     playLevelComplete();setTimeout(()=>playCardPickup(),900);
+    // Show replay button after a short delay
+    setTimeout(()=>{
+      const rb=document.getElementById('replayBtn');
+      if(rb){rb.classList.add('visible');}
+    }, 1800);
+  },
+
+  replayGame(){
+    FC.stop();
+    document.getElementById('finalScreen').classList.remove('active');
+    document.getElementById('finalResponse').style.display='none';
+    const rb=document.getElementById('replayBtn');
+    if(rb){rb.classList.remove('visible');}
+    this.lives=3;this.coins=0;
+    this.showIntro();
   },
 
   loop(ts){
@@ -1657,72 +1801,140 @@ const G={
     this.enemies_arr.forEach(en=>{
       if(!en.alive)return;const x=en.x,y=en.y;
       const isJump=en.type==='jump';
+      const t=Date.now()*.001;
       // Shadow
-      ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.ellipse(x+14,y+33,12,4,0,0,Math.PI*2);ctx.fill();
-      // Body
-      ctx.fillStyle=isJump?ec2:ec1;
+      ctx.fillStyle='rgba(0,0,0,0.25)';ctx.beginPath();ctx.ellipse(x+14,y+34,13,5,0,0,Math.PI*2);ctx.fill();
+      // Body with gradient texture
+      const bg=ctx.createRadialGradient(x+11,y+14,0,x+14,y+18,16);
+      bg.addColorStop(0,isJump?ec1:ec2);bg.addColorStop(0.5,isJump?ec2:ec1);bg.addColorStop(1,ec2);
+      ctx.fillStyle=bg;
       ctx.beginPath();ctx.ellipse(x+14,y+18,13,15,0,0,Math.PI*2);ctx.fill();
-      // Shine
-      ctx.fillStyle='rgba(255,255,255,0.18)';ctx.beginPath();ctx.ellipse(x+10,y+12,6,5,-.3,0,Math.PI*2);ctx.fill();
-      // Eyes
+      // Body shine / highlight
+      ctx.fillStyle='rgba(255,255,255,0.2)';ctx.beginPath();ctx.ellipse(x+9,y+11,6,5,-.3,0,Math.PI*2);ctx.fill();
+      // Texture pattern on body
+      ctx.strokeStyle='rgba(0,0,0,0.12)';ctx.lineWidth=1;
+      for(let i=0;i<3;i++){ctx.beginPath();ctx.arc(x+14,y+18,(i+1)*4,0.5,Math.PI-.5);ctx.stroke();}
+      // Eyes (large white + colored iris)
       const eyeX=en.vx<0?-2:2;
-      ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x+10+eyeX,y+12,4,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+18+eyeX,y+12,4,0,Math.PI*2);ctx.fill();
-      ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(x+11+eyeX,y+12,2.2,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+19+eyeX,y+12,2.2,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(x+10+eyeX,y+12,4.5,4.5,0,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.ellipse(x+18+eyeX,y+12,4.5,4.5,0,0,Math.PI*2);ctx.fill();
+      // Iris
+      ctx.fillStyle=isJump?'#ff3300':'#cc0000';
+      ctx.beginPath();ctx.arc(x+11+eyeX,y+12,2.5,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(x+19+eyeX,y+12,2.5,0,Math.PI*2);ctx.fill();
+      // Pupils
+      ctx.fillStyle='#1a0000';ctx.beginPath();ctx.arc(x+11+eyeX,y+12,1.3,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+19+eyeX,y+12,1.3,0,Math.PI*2);ctx.fill();
       ctx.fillStyle='#fff';ctx.fillRect(x+11+eyeX,y+10,1,1);ctx.fillRect(x+19+eyeX,y+10,1,1);
-      // Angry brows
-      ctx.strokeStyle='#1a1a1a';ctx.lineWidth=2;
-      ctx.beginPath();ctx.moveTo(x+7+eyeX,y+8);ctx.lineTo(x+14+eyeX,y+7);ctx.stroke();
-      ctx.beginPath();ctx.moveTo(x+22+eyeX,y+7);ctx.lineTo(x+15+eyeX,y+8);ctx.stroke();
-      // Frown
-      ctx.strokeStyle='#1a1a1a';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(x+14,y+22,4,0,Math.PI);ctx.stroke();
-      // Feet
-      ctx.fillStyle=isJump?ec2:ec1;
-      ctx.beginPath();ctx.ellipse(x+8,y+32,7,4,0,0,Math.PI*2);ctx.fill();
-      ctx.beginPath();ctx.ellipse(x+20,y+32,7,4,0,0,Math.PI*2);ctx.fill();
-      // Jump enemy: spiky top
-      if(isJump){ctx.fillStyle=ec2;for(let s=0;s<4;s++){const sa=s*(Math.PI/2)-Math.PI/4;ctx.beginPath();ctx.moveTo(x+14+Math.cos(sa)*10,y+5+Math.sin(sa)*5);ctx.lineTo(x+14+Math.cos(sa+.25)*15,y+5+Math.sin(sa+.25)*8);ctx.lineTo(x+14+Math.cos(sa-.25)*15,y+5+Math.sin(sa-.25)*8);ctx.closePath();ctx.fill();}}
+      // Angry brows (thick)
+      ctx.fillStyle='#1a0000';ctx.lineWidth=2.5;ctx.strokeStyle='#1a0000';
+      ctx.beginPath();ctx.moveTo(x+6+eyeX,y+7);ctx.lineTo(x+14+eyeX,y+6);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x+22+eyeX,y+6);ctx.lineTo(x+14+eyeX,y+7);ctx.stroke();
+      // Mouth / fangs
+      ctx.fillStyle='#1a0000';ctx.beginPath();ctx.arc(x+14,y+23,3.5,0,Math.PI);ctx.fill();
+      ctx.fillStyle='#fff';
+      ctx.beginPath();ctx.moveTo(x+11,y+23);ctx.lineTo(x+12.5,y+26);ctx.lineTo(x+14,y+23);ctx.closePath();ctx.fill();
+      ctx.beginPath();ctx.moveTo(x+14,y+23);ctx.lineTo(x+15.5,y+26);ctx.lineTo(x+17,y+23);ctx.closePath();ctx.fill();
+      // Feet (rounded, matching body color)
+      ctx.fillStyle=ec2;
+      ctx.beginPath();ctx.ellipse(x+8,y+33,7,4.5,0,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.ellipse(x+20,y+33,7,4.5,0,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='rgba(255,255,255,0.15)';ctx.beginPath();ctx.ellipse(x+6,y+31,3,2,-.3,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.ellipse(x+18,y+31,3,2,-.3,0,Math.PI*2);ctx.fill();
+      // Jump enemy: crown of spikes
+      if(isJump){
+        ctx.save();ctx.shadowBlur=6;ctx.shadowColor=ec1;ctx.fillStyle=ec1;
+        for(let s=0;s<5;s++){const sa=s*(Math.PI*2/5)-Math.PI/2+Math.sin(t*2+s)*.1;
+          ctx.beginPath();ctx.moveTo(x+14+Math.cos(sa)*11,y+5+Math.sin(sa)*7);
+          ctx.lineTo(x+14+Math.cos(sa+.22)*17,y+5+Math.sin(sa+.22)*10);
+          ctx.lineTo(x+14+Math.cos(sa-.22)*17,y+5+Math.sin(sa-.22)*10);ctx.closePath();ctx.fill();}
+        ctx.restore();
+      }
     });
   },
 
   drawPlayer(){
     const p=this.player;if(p.dead)return;if(p.invincible>0&&Math.floor(p.invincible/4)%2===0)return;
     const x=p.x,y=p.y,d=p.dir;ctx.save();
-    // Crown
-    ctx.fillStyle='#ffd700';ctx.beginPath();ctx.moveTo(x+6,y+6);ctx.lineTo(x+8,y+1);ctx.lineTo(x+11,y+5);ctx.lineTo(x+16,y+0);ctx.lineTo(x+21,y+5);ctx.lineTo(x+24,y+1);ctx.lineTo(x+26,y+6);ctx.closePath();ctx.fill();
-    ctx.fillStyle='#ffec5c';ctx.beginPath();ctx.arc(x+16,y+2,2.5,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#ff88aa';ctx.beginPath();ctx.arc(x+9,y+4,1.5,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#88aaff';ctx.beginPath();ctx.arc(x+23,y+4,1.5,0,Math.PI*2);ctx.fill();
+    const s=1.18;
+    ctx.translate(x+18,y+28);ctx.scale(s,s);ctx.translate(-18,-28);
+    const ox=0,oy=0;
+    // Shadow
+    ctx.fillStyle='rgba(0,0,0,0.18)';ctx.beginPath();ctx.ellipse(ox+16,oy+52,14,5,0,0,Math.PI*2);ctx.fill();
     // Head
-    ctx.fillStyle='#ffcba4';ctx.beginPath();ctx.ellipse(x+16,y+14,11,12,0,0,Math.PI*2);ctx.fill();
-    // Hair (dark brown, flowing)
-    ctx.fillStyle='#3d2000';ctx.beginPath();ctx.arc(x+16,y+9,11,Math.PI,0);ctx.fill();
-    ctx.beginPath();ctx.ellipse(x+5,y+16,5,9,-.3,0,Math.PI*2);ctx.fill();
-    ctx.beginPath();ctx.ellipse(x+27,y+16,5,9,.3,0,Math.PI*2);ctx.fill();
-    // Eyes
-    ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(x+12,y+14,3,3.5,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(x+20,y+14,3,3.5,0,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#5c3300';ctx.beginPath();ctx.arc(x+12,y+15,2,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+20,y+15,2,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#fff';ctx.fillRect(x+12,y+13,1,1);ctx.fillRect(x+20,y+13,1,1);
-    // Mouth
-    ctx.strokeStyle='#d4917a';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(x+16,y+18,2.5,.2,Math.PI-.2);ctx.stroke();
+    ctx.fillStyle='#ffd0aa';ctx.beginPath();ctx.ellipse(ox+16,oy+14,11,12,0,0,Math.PI*2);ctx.fill();
+    // Cheeks blush
+    ctx.fillStyle='rgba(255,150,150,0.38)';ctx.beginPath();ctx.ellipse(ox+8,oy+16,5,3,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(ox+24,oy+16,5,3,0,0,Math.PI*2);ctx.fill();
+    // Hair body (dark brown rich) — BEFORE crown
+    ctx.fillStyle='#2c1500';ctx.beginPath();ctx.arc(ox+16,oy+8,11.5,Math.PI,0);ctx.fill();
+    ctx.beginPath();ctx.ellipse(ox+4,oy+15,5.5,10,-.25,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(ox+28,oy+15,5.5,10,.25,0,Math.PI*2);ctx.fill();
+    // Hair shine
+    ctx.fillStyle='rgba(180,100,30,0.3)';ctx.beginPath();ctx.ellipse(ox+13,oy+6,5,3,-.3,0,Math.PI*2);ctx.fill();
+    // ── CROWN drawn AFTER hair so it sits ON TOP ──
+    ctx.save();ctx.shadowBlur=10;ctx.shadowColor='#ffd700';
+    ctx.fillStyle='#ffd700';
+    ctx.beginPath();
+    ctx.moveTo(ox+5, oy+5);   // left base
+    ctx.lineTo(ox+7, oy-4);   // left spike
+    ctx.lineTo(ox+11,oy+1);   // left inner
+    ctx.lineTo(ox+16,oy-7);   // center spike (tallest)
+    ctx.lineTo(ox+21,oy+1);   // right inner
+    ctx.lineTo(ox+25,oy-4);   // right spike
+    ctx.lineTo(ox+27,oy+5);   // right base
+    ctx.closePath();ctx.fill();
+    // Crown band
+    ctx.fillStyle='#d4a000';ctx.fillRect(ox+5,oy+2,22,5);
+    // Crown gems
+    ctx.fillStyle='#ffe44a';ctx.beginPath();ctx.arc(ox+16,oy-4,3,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,0.85)';ctx.beginPath();ctx.arc(ox+15,oy-5,1.3,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#ff80c0';ctx.beginPath();ctx.arc(ox+8,oy+4,2,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#88ccff';ctx.beginPath();ctx.arc(ox+24,oy+4,2,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+    // Eyes white
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(ox+11,oy+13,3.5,4,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(ox+21,oy+13,3.5,4,0,0,Math.PI*2);ctx.fill();
+    // Iris (warm brown)
+    ctx.fillStyle='#6b3300';ctx.beginPath();ctx.arc(ox+11,oy+14,2.3,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(ox+21,oy+14,2.3,0,Math.PI*2);ctx.fill();
+    // Pupil
+    ctx.fillStyle='#1a0800';ctx.beginPath();ctx.arc(ox+11,oy+14,1.2,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(ox+21,oy+14,1.2,0,Math.PI*2);ctx.fill();
+    // Eye shine
+    ctx.fillStyle='#fff';ctx.fillRect(ox+11,oy+12,1.5,1.5);ctx.fillRect(ox+21,oy+12,1.5,1.5);
+    // Eyelashes top
+    ctx.strokeStyle='#2c1500';ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.arc(ox+11,oy+13,3.8,Math.PI+0.3,Math.PI*2-0.3);ctx.stroke();
+    ctx.beginPath();ctx.arc(ox+21,oy+13,3.8,Math.PI+0.3,Math.PI*2-0.3);ctx.stroke();
+    // Mouth smile
+    ctx.strokeStyle='#c07060';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(ox+16,oy+19,3,.15,Math.PI-.15);ctx.stroke();
     // Earrings
-    ctx.fillStyle='#4fc3f7';ctx.beginPath();ctx.arc(x+5,y+17,2.5,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+27,y+17,2.5,0,Math.PI*2);ctx.fill();
-    // Dress body (pink)
-    ctx.fillStyle='#f48fb1';ctx.beginPath();ctx.moveTo(x+8,y+24);ctx.lineTo(x+24,y+24);ctx.lineTo(x+28,y+36);ctx.lineTo(x+4,y+36);ctx.closePath();ctx.fill();
-    // Dress skirt (fluffy pink)
-    ctx.fillStyle='#e91e8c';ctx.beginPath();ctx.moveTo(x+2,y+36);ctx.lineTo(x+30,y+36);ctx.lineTo(x+34,y+50);ctx.lineTo(x-2,y+50);ctx.closePath();ctx.fill();
-    ctx.fillStyle='#ff80c0';ctx.fillRect(x+2,y+36,28,3);
+    ctx.fillStyle='#4fc3f7';ctx.beginPath();ctx.arc(ox+4,oy+16,3,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#81d4fa';ctx.beginPath();ctx.arc(ox+3,oy+15,1.2,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#4fc3f7';ctx.beginPath();ctx.arc(ox+28,oy+16,3,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#81d4fa';ctx.beginPath();ctx.arc(ox+27,oy+15,1.2,0,Math.PI*2);ctx.fill();
     // White collar
-    ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(x+16,y+24,7,4,0,0,Math.PI*2);ctx.fill();
-    // Blue gem on chest
-    ctx.fillStyle='#29b6f6';ctx.beginPath();ctx.arc(x+16,y+28,3,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='rgba(255,255,255,0.6)';ctx.beginPath();ctx.arc(x+15,y+27,1.2,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(ox+16,oy+25,8,4.5,0,0,Math.PI*2);ctx.fill();
+    // Dress body
+    ctx.fillStyle='#f48fb1';ctx.beginPath();ctx.moveTo(ox+7,oy+25);ctx.lineTo(ox+25,oy+25);ctx.lineTo(ox+28,oy+37);ctx.lineTo(ox+4,oy+37);ctx.closePath();ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,0.22)';ctx.beginPath();ctx.moveTo(ox+10,oy+25);ctx.lineTo(ox+18,oy+25);ctx.lineTo(ox+16,oy+37);ctx.lineTo(ox+8,oy+37);ctx.closePath();ctx.fill();
+    // Dress skirt
+    ctx.fillStyle='#e91e8c';ctx.beginPath();ctx.moveTo(ox+1,oy+37);ctx.lineTo(ox+31,oy+37);ctx.lineTo(ox+35,oy+52);ctx.lineTo(ox-3,oy+52);ctx.closePath();ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,0.18)';ctx.beginPath();ctx.moveTo(ox+4,oy+37);ctx.lineTo(ox+14,oy+37);ctx.lineTo(ox+12,oy+52);ctx.lineTo(ox+2,oy+52);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#ff5fa8';ctx.fillRect(ox+1,oy+37,30,3);
+    // Blue gem chest
+    ctx.save();ctx.shadowBlur=6;ctx.shadowColor='#29b6f6';
+    ctx.fillStyle='#29b6f6';ctx.beginPath();ctx.arc(ox+16,oy+29,3.5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,0.65)';ctx.beginPath();ctx.arc(ox+15,oy+28,1.4,0,Math.PI*2);ctx.fill();
+    ctx.restore();
     // Arms/gloves
-    ctx.fillStyle='#ffcba4';ctx.fillRect(x+1,y+26,6,12);ctx.fillRect(x+25,y+26,6,12);
-    ctx.fillStyle='#fff';ctx.fillRect(x+1,y+34,6,5);ctx.fillRect(x+25,y+34,6,5);
+    ctx.fillStyle='#ffd0aa';ctx.fillRect(ox+0,oy+26,7,12);ctx.fillRect(ox+25,oy+26,7,12);
+    ctx.fillStyle='fff';ctx.fillRect(ox+0,oy+35,7,5);ctx.fillRect(ox+25,oy+35,7,5);
+    ctx.fillStyle='#f48fb1';ctx.fillRect(ox+0,oy+33,7,3);ctx.fillRect(ox+25,oy+33,7,3);
     // Legs/boots
     const lo=p.onGround?Math.sin(p.anim)*4:0;
-    ctx.fillStyle='#f8bbd9';ctx.fillRect(x+8,y+48,8,6+Math.abs(lo));ctx.fillRect(x+16,y+48,8,6-lo*.5);
-    ctx.fillStyle='#e91e8c';ctx.beginPath();ctx.ellipse(x+11,y+54+Math.abs(lo),7,4,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(x+21,y+54,7,4,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#f8bbd9';ctx.fillRect(ox+8,oy+50,8,6+Math.abs(lo));ctx.fillRect(ox+17,oy+50,8,6-lo*.5);
+    ctx.save();ctx.shadowBlur=4;ctx.shadowColor='#c0005a';
+    ctx.fillStyle='#d81b60';ctx.beginPath();ctx.ellipse(ox+11,oy+56+Math.abs(lo),7.5,4.5,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#d81b60';ctx.beginPath();ctx.ellipse(ox+22,oy+56,7.5,4.5,0,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+    ctx.fillStyle='rgba(255,255,255,0.3)';ctx.beginPath();ctx.ellipse(ox+9,oy+54+Math.abs(lo),3,1.5,0,0,Math.PI*2);ctx.fill();
     ctx.restore();
   },
 
